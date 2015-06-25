@@ -1,0 +1,4 @@
+alice shuxue 80
+jack	shuxue	90
+alice	yuwen	90
+jack	yuwen	70
