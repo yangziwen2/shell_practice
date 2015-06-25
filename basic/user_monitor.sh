@@ -34,12 +34,12 @@ monitor() {
 
 	ps_arr=(`ps aux | awk '{print $1,$3,$4}'`)
 	arr_len=${#ps_arr[@]}
-	col_per_line=3
-	line_num=$(( $arr_len / $col_per_line ))
+	cols_per_line=3
+	line_num=$(( $arr_len / $cols_per_line ))
 
 	for ((i=0; i<$line_num; i++ ))
 	do
-		idx=$(( $col_per_line * $i ))
+		idx=$(( $cols_per_line * $i ))
 		info=(`echo ${ps_arr[@]:$idx:3}`)
 		if [ $is_head -eq 0 ]; then
 			is_head=1
@@ -73,8 +73,8 @@ monitor() {
 	do
 		pad_left "| $user" 10
 		echo -n "|"
-		pad_right "${cpu_stats[$user]} |" 10
-		pad_right "${mem_stats[$user]} |" 10
+		pad_right "`printf "%.2f" ${cpu_stats[$user]}` |" 10
+		pad_right "`printf "%.2f" ${mem_stats[$user]}` |" 10
 		echo ''
 	done
 
