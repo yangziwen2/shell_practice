@@ -21,7 +21,7 @@ pad_right() {
 }
 
 output_sep_line() {
-	pad_left "+" 10 "-"
+	pad_left "+" 13 "-"
 	echo -n "+"
 	pad_right "+" 10 "-"
 	pad_right "+" 10 "-"
@@ -69,7 +69,7 @@ monitor() {
 
 	output_sep_line	
 
-	pad_left "| USER" 10
+	pad_left "| USER" 13
 	echo -n "|"
 	pad_right "CPU% |" 10
 	pad_right "MEM% |" 10
@@ -85,7 +85,7 @@ monitor() {
 		colored_cpu_usage=$([ `printf "%.0f" $cpu_usage` -ge $critical_value ] && add_color ${cpu_usage} 31 || echo $cpu_usage)
 		colored_mem_usage=$([ `printf "%.0f" $mem_usage` -ge $critical_value ] && add_color ${mem_usage} 31 || echo $mem_usage)
 
-		pad_left "| $user" 10
+		pad_left "| $user" 13
 		echo -n "|"
 		pad_right "$colored_cpu_usage |" 10 " " $(( ${#cpu_usage} + 2))
 		pad_right "$colored_mem_usage |" 10 " " $(( ${#mem_usage} + 2))
