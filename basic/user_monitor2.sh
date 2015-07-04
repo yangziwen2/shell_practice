@@ -2,8 +2,8 @@
 
 monitor() {
 	critical_value=$1
-	ps aux | awk '
-	function asort(arr, key_arr, order_direct) {
+	ps aux | awk -v critical_value=$critical_value -v order_by=$order_by -v order_direct=$order_direct '
+	function msort(arr, key_arr, order_direct) {
 		order_direct = order_direct > 0? 1: -1
 		i = 0
 		for(key in arr) {
@@ -37,23 +37,19 @@ monitor() {
 		color_red = "\033[31m"
 		color_none = "\033[0m"
 		output_tmpl = "%s%10.2f\033[0m |"
-		critical_value = '$critical_value'
 		sep_line = "+------------+-----------+-----------+"
 		
 		print sep_line
 		printf "| %-10s |%10s |%10s |\n", "USER", "CPU%", "MEM%"
 		print sep_line
 		
-		order_by="'$order_by'"
-		order_direct='$order_direct'
-
 		n = 0
 		if(order_by == "c") {
-			n = asort(cpu_used, sorted_users, order_direct)
+			n = msort(cpu_used, sorted_users, order_direct)
 		} else if (order_by == "m") {
-			n = asort(mem_used, sorted_users, order_direct)
+			n = msort(mem_used, sorted_users, order_direct)
 		} else {
-			n = asort(users, sorted_users, order_direct)
+			n = msort(users, sorted_users, order_direct)
 		}
 
 		for( i = 0; i < n; i++ ) {
