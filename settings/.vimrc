@@ -6,3 +6,6 @@ set softtabstop=4
 set nu
 set mouse=c
 set paste
+set ff=unix
+set nowrap
+syntax on
